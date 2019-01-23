@@ -2,6 +2,8 @@ branch-defaults:
   default:
     environment: MgmresortsReactive-dev
     group_suffix: null
+deploy:
+  artifact: target/testpublicrepo-1.0.jar
 global:
   application_name: mgmresorts-reactive
   default_ec2_keyname: ujenk
