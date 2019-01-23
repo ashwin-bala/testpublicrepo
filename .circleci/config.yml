@@ -55,7 +55,9 @@ jobs:
 
       - run:
           name: echo workspace
-          command: ls -ltr *      
+          command: |
+              pwd
+              ls -ltr *.      
 
 #      - run:
 #          name: Setting EB environment name
