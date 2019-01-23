@@ -14,7 +14,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-  <name>mgmresorts-reactive</name>
+  <name>testpublicrepo</name>
   <url>http://maven.apache.org</url>
 
   <properties>
