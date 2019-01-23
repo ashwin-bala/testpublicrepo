@@ -46,7 +46,7 @@ jobs:
     environment:
       AWS_DEFAULT_OUTPUT: json
     steps:
-     - run:
+      - run:
           name: Install awscli
           command: pip install awsebcli --upgrade --user
       - run:
