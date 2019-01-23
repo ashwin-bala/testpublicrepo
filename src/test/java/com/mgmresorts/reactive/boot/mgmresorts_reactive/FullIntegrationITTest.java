@@ -14,7 +14,7 @@ public class FullIntegrationITTest {
 	private static int port = 8080;
 	static List<String> setupList = new  ArrayList<String>(10);
 
-	
+/*	
 	@BeforeClass
     public static void setup() throws Exception {
 		setupList.add("Uncle bob");
@@ -40,5 +40,6 @@ public class FullIntegrationITTest {
 
 		 client.post().uri("/sales/post1").body(BodyInserters.fromObject("HelloWorld-Ashwin")).exchange().expectStatus().isOk().expectBody().jsonPath("$.[0]").isEqualTo("Uncle bob");
 	    }
+		*/
 
 }
