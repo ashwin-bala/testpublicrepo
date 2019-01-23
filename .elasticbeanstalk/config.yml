@@ -1,0 +1,12 @@
+branch-defaults:
+  default:
+    environment: MgmresortsReactive-dev
+    group_suffix: null
+global:
+  application_name: mgmresorts-reactive
+  default_ec2_keyname: ujenk
+  default_platform: Java 8
+  default_region: us-east-1
+  include_git_submodules: true
+  sc: git
+  workspace_type: Application
