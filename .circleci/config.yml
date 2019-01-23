@@ -47,7 +47,9 @@ jobs:
             sudo apt-get -y -qq update
             sudo apt-get install python-pip python-dev build-essential
             sudo pip install awsebcli --upgrade
-
+      - run:
+          name: Setting EB environment variables
+          command: eb setenv SERVER_PORT=5000   
       - run:
           name: Deploying
           command: eb deploy MgmresortsReactive-dev     
