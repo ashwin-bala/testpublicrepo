@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     
-    working_directory: ~/testpublicrepo/mgmresorts-reactive
+    working_directory: ~/project
 
     docker:
       - image: circleci/openjdk:8-jdk-browsers
