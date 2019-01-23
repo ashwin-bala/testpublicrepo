@@ -40,6 +40,11 @@ jobs:
           paths:
             - spring-jar
 
+
+      - run:
+          name: echo workspace
+          command: ls -ltr spring-jar/*           
+
       - run:
           name: Installing deployment dependencies
           working_directory: ~/project/target
