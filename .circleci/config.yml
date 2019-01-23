@@ -54,21 +54,16 @@ jobs:
             sudo pip install awsebcli --upgrade
 
       - run:
-          name: echo workspace
-          command: |
-              pwd
-              ls -ltr *.      
+         name: Setting EB environment name
+         command: eb use MgmresortsReactive-dev   
 
-#      - run:
-#          name: Setting EB environment name
-#          command: eb use MgmresortsReactive-dev   
-
-#      - run:
-#          name: Setting EB environment variables
-#          command: eb setenv SERVER_PORT=5000   
-#      - run:
-#          name: Deploying
-#          command: eb deploy    
+      - run:
+         name: Setting EB environment variables
+         command: eb setenv SERVER_PORT=5000   
+         
+      - run:
+         name: Deploying
+         command: eb deploy    
 
 workflows:
   version: 2
