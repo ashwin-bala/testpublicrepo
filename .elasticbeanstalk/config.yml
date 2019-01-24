@@ -1,6 +1,6 @@
 branch-defaults:
   default:
-    environment: MgmresortsReactive-dev
+    environment: MgmresortsReactive-env
     group_suffix: null
 deploy:
   artifact: target/testpublicrepo-1.0.jar

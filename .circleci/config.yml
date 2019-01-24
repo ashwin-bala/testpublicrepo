@@ -55,7 +55,7 @@ jobs:
 
       - run:
          name: Setting EB environment name
-         command: eb use MgmresortsReactive-dev   
+         command: eb use MgmresortsReactive-env   
 
       - run:
          name: Setting EB environment variables
