@@ -24,6 +24,7 @@ import reactor.core.publisher.Flux;
 @WebFluxTest(SalesController.class)
 public class SalesControllerTest {
 static List<String> setupList = new  ArrayList<String>(10);
+static Flux<String> fsetUpList ;
 
 @Autowired
 private WebTestClient webClient;
@@ -39,6 +40,7 @@ private SalesServiceImpl service;
 		setupList.add("Brother John");
 		setupList.add("Sister Janet");
 		setupList.add("Cousin Aaron");
+		fsetUpList.just(setupList);
 	}
 	
 	 @Test
@@ -47,14 +49,14 @@ private SalesServiceImpl service;
 	      
 		 System.out.println("--------Executing Sales Controller Test------");
 
-		  BDDMockito.given(this.service.ListSalesLeads()).willReturn(setupList);
-
-	  
+		  BDDMockito.given(this.service.ListSalesLeads()).willReturn(fsetUpList);
+//
+//	  
 		 webClient.post().uri("/sales/post1")
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(BodyInserters.fromObject("Hello world - First Webflux controller test"))
 			.exchange().expectStatus().isOk()
-			.expectBody(List.class).isEqualTo(setupList);
+			.expectBody(Flux.class).isEqualTo(fsetUpList);
 	 }
 
 }

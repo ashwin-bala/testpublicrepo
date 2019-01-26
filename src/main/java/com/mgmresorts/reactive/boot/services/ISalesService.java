@@ -1,8 +1,8 @@
 package com.mgmresorts.reactive.boot.services;
 
-import java.util.List;
+import reactor.core.publisher.Flux;
 
 
 public interface ISalesService {
-	public List<String> ListSalesLeads();
+	public Flux<String> ListSalesLeads();
 }
