@@ -2,27 +2,27 @@ version: 2
 jobs:
   deploy:
     - run:
-      name: Installing deployment dependencies
-      working_directory: ~/project
-      command: |
+        name: Installing deployment dependencies
+        working_directory: ~/project
+        command: |
         sudo apt-get -y -qq update
         sudo apt-get install python-pip python-dev build-essential
         sudo pip install awsebcli --upgrade
 
     - run:
-      name: Setting EB environment name
-      command: eb use MgmresortsReactive-env   
+        name: Setting EB environment name
+        command: eb use MgmresortsReactive-env   
 
     - run:
-      name: Setting EB environment variables
-      command: eb setenv SERVER_PORT=5000   
+        name: Setting EB environment variables
+        command: eb setenv SERVER_PORT=5000   
     
     - run:
-      name: Deploying
-      command: eb deploy    
+        name: Deploying
+        command: eb deploy    
 
   integration-test:
-     - run: mvn dependency:go-offline
+    - run: mvn dependency:go-offline
 
   build:
     
