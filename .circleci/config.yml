@@ -47,7 +47,7 @@ jobs:
 
       - run:
           name: echo workspace
-          command: ls -ltr spring-jar/*               
+          command: ls -ltr /tmp/workspace/spring-jar/*               
 
       - checkout
 
