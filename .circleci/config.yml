@@ -5,9 +5,9 @@ jobs:
         name: Installing deployment dependencies
         working_directory: ~/project
         command: |
-        sudo apt-get -y -qq update
-        sudo apt-get install python-pip python-dev build-essential
-        sudo pip install awsebcli --upgrade
+          sudo apt-get -y -qq update
+          sudo apt-get install python-pip python-dev build-essential
+          sudo pip install awsebcli --upgrade
 
     - run:
         name: Setting EB environment name
