@@ -105,12 +105,16 @@ jobs:
   
 workflows:
   version: 2
-  build-test-and-deploy:
+  build-test-approval-deploy:
     jobs:
       - build
       - integration-test:
           requires:
             - build
+      - hold-for-qa: 
+          type: approval 
+          requires: 
+            - integration-test      
       - deploy:
           requires:
-            - integration-test
+            - hold-for-qa
