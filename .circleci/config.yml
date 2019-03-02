@@ -1,5 +1,29 @@
 version: 2
 jobs:
+  deploy:
+    - run:
+      name: Installing deployment dependencies
+      working_directory: ~/project
+      command: |
+        sudo apt-get -y -qq update
+        sudo apt-get install python-pip python-dev build-essential
+        sudo pip install awsebcli --upgrade
+
+    - run:
+      name: Setting EB environment name
+      command: eb use MgmresortsReactive-env   
+
+    - run:
+      name: Setting EB environment variables
+      command: eb setenv SERVER_PORT=5000   
+    
+    - run:
+      name: Deploying
+      command: eb deploy    
+
+  integration-test:
+     - run: mvn dependency:go-offline
+
   build:
     
     working_directory: ~/project
@@ -21,7 +45,7 @@ jobs:
             - ~/.m2
           key: circleci-mgmresorts-reactive-{{ checksum "pom.xml" }}
       
-      - run: mvn package
+      - run: mvn package -DskipTests
       
       - store_test_results:
           path: target/surefire-reports
@@ -45,28 +69,15 @@ jobs:
           name: echo workspace
           command: ls -ltr spring-jar/*           
 
-      - run:
-          name: Installing deployment dependencies
-          working_directory: ~/project
-          command: |
-            sudo apt-get -y -qq update
-            sudo apt-get install python-pip python-dev build-essential
-            sudo pip install awsebcli --upgrade
-
-      - run:
-         name: Setting EB environment name
-         command: eb use MgmresortsReactive-env   
-
-      - run:
-         name: Setting EB environment variables
-         command: eb setenv SERVER_PORT=5000   
-         
-      - run:
-         name: Deploying
-         command: eb deploy    
 
 workflows:
   version: 2
-  build-deploy:
+  build-test-and-deploy:
     jobs:
       - build
+      - integration-test:
+          requires:
+            - build
+       - deploy:
+          requires:
+            - integration-test
