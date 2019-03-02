@@ -42,7 +42,7 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk-browsers
     steps:
-      - attach_workspace::
+      - attach_workspace:
           at: /tmp/workspace
 
       - run:
