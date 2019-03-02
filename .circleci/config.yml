@@ -23,50 +23,72 @@ jobs:
       
       - run: mvn package -DskipTests
       
+            
+
+  integration-test:
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: circleci-mgmresorts-reactive-{{ checksum "pom.xml" }}
+      
+      - run: mvn dependency:go-offline
+      
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: circleci-mgmresorts-reactive-{{ checksum "pom.xml" }}
+      
+      - run: mvn test
+
       - store_test_results:
           path: target/surefire-reports
       
       - store_artifacts:
           path: target/testpublicrepo-1.0.jar
 
-      - run:
-          name: Save jar to an workspace folder
-          command: |
-            mkdir spring-jar
-            cp -R target/testpublicrepo-1.0.jar spring-jar
+#      - run:
+#          name: Save jar to an workspace folder
+#          command: |
+#            mkdir spring-jar
+#            cp -R target/testpublicrepo-1.0.jar spring-jar
 
-      - persist_to_workspace:
-          root: .
-          paths:
-            - spring-jar
+#      - persist_to_workspace:
+#          root: .
+#          paths:
+#            - spring-jar
 
-      - run:
-          name: echo workspace
-          command: ls -ltr spring-jar/*           
+#      - run:
+#          name: echo workspace
+#          command: ls -ltr spring-jar/*    
 
-  integration-test:
-    docker:
-      - image: circleci/openjdk:8-jdk-browsers
-    steps:
-      - attach_workspace:
-          # Must be absolute path or relative path from working_directory
-          at: .
-      - run: 
-          name: cd to the shared folder
-          command: |
-            cd spring-jar          
-      - run: mvn test
+       
   deploy:
     docker:
       - image: circleci/openjdk:8-jdk-browsers
     steps:
+      - checkout
+
+      - restore_cache:
+          key: circleci-mgmresorts-reactive-{{ checksum "pom.xml" }}
+      
+      - run: mvn dependency:go-offline
+      
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: circleci-mgmresorts-reactive-{{ checksum "pom.xml" }}
+      
+      - run: mvn package
+
       - run:
-        name: Installing deployment dependencies
-        working_directory: ~/project
-        command: |
-          sudo apt-get -y -qq update
-          sudo apt-get install python-pip python-dev build-essential
-          sudo pip install awsebcli --upgrade
+          name: Installing deployment dependencies
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get install python-pip python-dev build-essential
+            sudo pip install awsebcli --upgrade
 
       - run:
           name: Setting EB environment name
