@@ -48,6 +48,13 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk-browsers
     steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: .
+      - run: 
+          name: cd to the shared folder
+          command: |
+            cd spring-jar          
       - run: mvn test
   deploy:
     docker:
