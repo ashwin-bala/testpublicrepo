@@ -1,29 +1,5 @@
 version: 2
 jobs:
-  deploy:
-    - run:
-        name: Installing deployment dependencies
-        working_directory: ~/project
-        command: |
-          sudo apt-get -y -qq update
-          sudo apt-get install python-pip python-dev build-essential
-          sudo pip install awsebcli --upgrade
-
-    - run:
-        name: Setting EB environment name
-        command: eb use MgmresortsReactive-env   
-
-    - run:
-        name: Setting EB environment variables
-        command: eb setenv SERVER_PORT=5000   
-    
-    - run:
-        name: Deploying
-        command: eb deploy    
-
-  integration-test:
-    - run: mvn dependency:go-offline
-
   build:
     
     working_directory: ~/project
@@ -64,12 +40,36 @@ jobs:
           paths:
             - spring-jar
 
-
       - run:
           name: echo workspace
           command: ls -ltr spring-jar/*           
 
+  integration-test:
+    steps:
+      - run: mvn dependency:go-offline
+  deploy:
+    steps:
+      - run:
+        name: Installing deployment dependencies
+        working_directory: ~/project
+        command: |
+          sudo apt-get -y -qq update
+          sudo apt-get install python-pip python-dev build-essential
+          sudo pip install awsebcli --upgrade
 
+      - run:
+          name: Setting EB environment name
+          command: eb use MgmresortsReactive-env   
+
+      - run:
+          name: Setting EB environment variables
+          command: eb setenv SERVER_PORT=5000   
+      
+      - run:
+          name: Deploying
+          command: eb deploy    
+
+  
 workflows:
   version: 2
   build-test-and-deploy:
