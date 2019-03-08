@@ -43,15 +43,15 @@ jobs:
       - image: circleci/openjdk:8-jdk-browsers
     steps:
       - when:
-          condition: <<parameters.preinstall-foo>>
-          steps:
-            - run: echo "my custom checkout"
+        condition: <<parameters.preinstall-foo>>
+        steps:
+          - run: echo "my custom checkout"
 
-            - store_test_results:
-                path: target/surefire-reports
+          - store_test_results:
+              path: target/surefire-reports
             
-            - store_artifacts:
-                path: target/testpublicrepo-1.0.jar
+          - store_artifacts:
+              path: target/testpublicrepo-1.0.jar
 
  
 
