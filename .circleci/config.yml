@@ -43,7 +43,7 @@ jobs:
       - image: circleci/openjdk:8-jdk-browsers
     steps:
       - when:
-        condition: $IT_TESTS == true
+        condition: $IT_TESTS
         steps:
             - attach_workspace:
                 at: /tmp/workspace
