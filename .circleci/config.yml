@@ -43,7 +43,7 @@ jobs:
       - image: circleci/openjdk:8-jdk-browsers
     steps:
       - when:
-          condition: <<parameters.IT_TEST_REQUIRED>>
+          condition: <<parameters.preinstall-foo>>
           steps:
             - run: echo "my custom checkout"
 
@@ -100,7 +100,7 @@ workflows:
     jobs:
       - build
       - integration-test:
-          IT_TEST_REQUIRED: $IT_ENV
+          preinstall-foo: false
           requires:
             - build
         #   - hold-for-qa: 
