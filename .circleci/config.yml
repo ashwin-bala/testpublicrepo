@@ -42,32 +42,35 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk-browsers
     steps:
-      - attach_workspace:
-          at: /tmp/workspace
+      - when:
+        condition: $IT_TESTS == true
+        steps:
+            - attach_workspace:
+                at: /tmp/workspace
 
-      - run:
-          name: echo workspace
-          command: ls -ltr /tmp/workspace/spring-jar/*               
+            - run:
+                name: echo workspace
+                command: ls -ltr /tmp/workspace/spring-jar/*               
 
-      - checkout
+            - checkout
 
-      - restore_cache:
-          key: circleci-mgmresorts-reactive-{{ checksum "pom.xml" }}
-      
-      - run: mvn dependency:go-offline
-      
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: circleci-mgmresorts-reactive-{{ checksum "pom.xml" }}
-      
-      - run: mvn test
+            - restore_cache:
+                key: circleci-mgmresorts-reactive-{{ checksum "pom.xml" }}
+            
+            - run: mvn dependency:go-offline
+            
+            - save_cache:
+                paths:
+                    - ~/.m2
+                key: circleci-mgmresorts-reactive-{{ checksum "pom.xml" }}
+            
+            - run: mvn test
 
-      - store_test_results:
-          path: target/surefire-reports
-      
-      - store_artifacts:
-          path: target/testpublicrepo-1.0.jar
+            - store_test_results:
+                path: target/surefire-reports
+            
+            - store_artifacts:
+                path: target/testpublicrepo-1.0.jar
 
  
 
@@ -118,10 +121,10 @@ workflows:
       - integration-test:
           requires:
             - build
-      - hold-for-qa: 
-          type: approval 
-          requires: 
-            - integration-test      
-      - deploy:
-          requires:
-            - hold-for-qa
+        #   - hold-for-qa: 
+        #       type: approval 
+        #       requires: 
+        #         - integration-test      
+        #   - deploy:
+        #       requires:
+        #         - hold-for-qa
