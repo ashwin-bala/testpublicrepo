@@ -99,8 +99,8 @@ workflows:
       - build
       - integration-test:
           preinstall-foo: false
-          requires:
-            - build
+        #   requires:
+        #     - build
         #   - hold-for-qa: 
         #       type: approval 
         #       requires: 
