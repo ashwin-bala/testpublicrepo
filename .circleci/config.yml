@@ -42,7 +42,7 @@ jobs:
     parameters:
       preinstall-foo:
         type: boolean
-        default: false
+        default: $IT_TESTS_EXEC
     docker:
       - image: circleci/openjdk:8-jdk-browsers
     steps:
@@ -101,8 +101,7 @@ workflows:
   build-test-approval-deploy:
     jobs:
       - build
-      - integration-test:
-          preinstall-foo: $IT_TESTS_EXEC
+      - integration-test:        
         #   requires:
         #     - build
         #   - hold-for-qa: 
