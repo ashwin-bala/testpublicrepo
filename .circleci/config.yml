@@ -41,7 +41,7 @@ jobs:
   integration-test:
     parameters:
       preinstall-foo:
-        type: boolean
+        type: string
         default: $IT_TESTS_EXEC
     docker:
       - image: circleci/openjdk:8-jdk-browsers
