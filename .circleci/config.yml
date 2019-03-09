@@ -101,7 +101,7 @@ workflows:
   build-test-approval-deploy:
     jobs:
       - build
-      - integration-test:        
+      - integration-test        
         #   requires:
         #     - build
         #   - hold-for-qa: 
